@@ -30,13 +30,7 @@ if FRONTEND_DIR.exists():
 
 @app.get("/")
 def home():
-    import os
-    return {
-        "frontend_path": str(FRONTEND_DIR),
-        "exists": os.path.exists(FRONTEND_DIR),
-        "files": os.listdir(FRONTEND_DIR) if os.path.exists(FRONTEND_DIR) else "NO DIR"
-    }
-
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 def get_db():
     db = SessionLocal()
