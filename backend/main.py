@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 import models, schemas, crud
-from database import Base, engine, SessionLocal
+from backend.database import Base, engine, SessionLocal
 
 # =======================
 # إنشاء التطبيق أولاً (IMPORTANT)
