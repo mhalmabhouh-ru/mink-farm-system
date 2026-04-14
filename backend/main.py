@@ -5,8 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
-from backend import models, schemas, crud
-from backend.database import Base, engine, SessionLocal
+from . import models, schemas, crud
+from .database import Base, engine, SessionLocal
 
 # =======================
 # إنشاء التطبيق أولاً (IMPORTANT)
