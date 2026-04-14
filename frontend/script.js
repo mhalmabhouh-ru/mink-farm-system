@@ -8,12 +8,13 @@ async function load() {
   list.innerHTML = "";
 
   data.forEach(m => {
-    list.innerHTML += 
-      <li>
+    list.innerHTML +=  
+      `<li>
         ${m.female_no} - ${m.shed}
         <button onclick="del(${m.id})">X</button>
       </li>
-    ;
+    `;
+
   });
 }
 
