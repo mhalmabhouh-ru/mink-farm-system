@@ -21,17 +21,20 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
-#if FRONTEND_DIR.exists():
-app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+if os.path.exists(FRONTEND_DIR):
+     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
 
 @app.get("/")
 def home():
-    return FileResponse(FRONTEND_DIR / "index.html")
-
+    file_path = FRONTEND_DIR / "index.html"
+    if file_path.exists():
+        return FileResponse(file_path)
+    return {"error": "index.html not found", "path": str(file_path)}
+    
 def get_db():
     db = SessionLocal()
     try:
