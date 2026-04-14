@@ -21,7 +21,7 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
 if FRONTEND_DIR.exists():
