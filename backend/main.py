@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -7,13 +8,13 @@ from sqlalchemy.orm import Session
 import models, schemas, crud
 from database import Base, engine, SessionLocal
 
-# إنشاء الجداول
-Base.metadata.create_all(bind=engine)
-
+# =======================
+# إنشاء التطبيق أولاً (IMPORTANT)
+# =======================
 app = FastAPI()
 
 # =======================
-# CORS (مهم للـ JS)
+# CORS
 # =======================
 app.add_middleware(
     CORSMiddleware,
@@ -24,21 +25,31 @@ app.add_middleware(
 )
 
 # =======================
-# Static Frontend files
+# إنشاء الجداول
 # =======================
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+Base.metadata.create_all(bind=engine)
+
+# =======================
+# تحديد مسار frontend بشكل آمن
+# =======================
+BASE_DIR = os.path.dirname(os.path.abspath(file))
+FRONTEND_DIR = os.path.join(BASE_DIR, "../frontend")
+
+# حماية من crash إذا المجلد مش موجود
+if os.path.exists(FRONTEND_DIR):
+    app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 # =======================
-# ROOT (Frontend page)
+# الصفحة الرئيسية
 # =======================
 @app.get("/")
 def home():
-    return FileResponse("frontend/index.html")
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 
 # =======================
-# DB Dependency
+# DB dependency
 # =======================
 def get_db():
     db = SessionLocal()
@@ -57,7 +68,7 @@ def add_mink(mink: schemas.MinkCreate, db: Session = Depends(get_db)):
 
 
 # =======================
-# READ ALL
+# READ
 # =======================
 @app.get("/minks")
 def get_minks(db: Session = Depends(get_db)):
