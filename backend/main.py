@@ -22,7 +22,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-FRONTEND_DIR = BASE_DIR / "frontend"
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
 #if FRONTEND_DIR.exists():
 app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
