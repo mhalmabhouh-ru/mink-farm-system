@@ -1,4 +1,4 @@
-const API = "https://mink-farm-system-production.up.railway.app";
+const API = "https://mink-farm-system-production-4626.up.railway.app";
 
 async function load() {
   const res = await fetch(API + "/minks");
