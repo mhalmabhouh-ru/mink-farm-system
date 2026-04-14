@@ -1,4 +1,4 @@
-from models import Mink
+from backend.models import Mink
 #CREATE
 def create_mink(db, data): 
     mink = Mink(**data.dict()) 
