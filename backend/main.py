@@ -32,8 +32,8 @@ Base.metadata.create_all(bind=engine)
 # =======================
 # تحديد مسار frontend بشكل آمن
 # =======================
-BASE_DIR = os.path.dirname(os.path.abspath(file))
-FRONTEND_DIR = os.path.join(BASE_DIR, "../frontend")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 # حماية من crash إذا المجلد مش موجود
 if os.path.exists(FRONTEND_DIR):
